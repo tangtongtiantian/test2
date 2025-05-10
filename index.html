@@ -2,6 +2,12 @@
 <html>
 <head>
     <style>
+:root {
+         --primary-color: #77DD77;  /* 主色调-薄荷绿 */
+    --secondary-color: #C1E1C1; /* 辅助色-浅苔绿 */
+    --accent-color: #B5EAD7;    /* 强调色-保留原有薄荷色 */
+    --text-color: #2F4F4F;      /* 文字色-深石板灰 */
+        }
 /* 新增完成提示样式 */
         #completion-message {
             display: none;
@@ -15,8 +21,10 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.2);
             align-items: center;
             font-size: 24px;
-            color: #4CAF50;
+            color: var(--primary-color);
             z-index: 100;
+border: 3px solid var(--primary-color);
+            animation: bounce 1s infinite;
         }
 
         .emoji {
@@ -40,10 +48,13 @@
         #formula {
             flex: 1;
             background: #f0f0f0;
-            display: flex;
+           display: flex;
             align-items: center;
             padding: 20px;
-            font-size: 20px; /* 调小基础字号 */
+            font-size: 30px;
+            font-family: 'Comic Sans MS', cursive;
+            color: var(--text-color);
+            border-bottom: 3px dotted var(--primary-color);
         }
 
         /* 模块区域保持原样 */
@@ -58,15 +69,23 @@
         }
 
         .module {
-            width: 100px; /* 稍微加宽 */
-            height: 80px;
-            border: 2px solid #333;
+           width: 150px;
+            height: 70px;
+            border: 3px solid var(--primary-color);
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: move;
             background: white;
-            font-size: 16px; /* 模块字号 */
+            font-size: 25px;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+        }
+       .module:hover {
+            transform: translateY(-5px);
+            background: var(--secondary-color);
         }
 
         /* 改进分式样式 */
@@ -91,24 +110,38 @@
         /* 调整占位框样式 */
         .placeholder {
             width: auto; /* 改为自动宽度 */
-            min-width: 60px;
+            min-width: 150px;
             padding: 0 5px;
-            height: 30px;
-            border: 2px dashed #666;
-            margin: 2px;
+            height: 50px;
+            border: 2px dashed var(--primary-color);
+            border-radius: 8px;
+            margin: 5px;
             transition: all 0.3s;
-            font-size: 16px; /* 调小字号 */
+            font-size: 25px; /* 调小字号 */
             display: flex;
             align-items: center;
             justify-content: center;
             white-space: nowrap; /* 防止换行 */
+           background: rgba(255,255,255,0.9);
+            transition: all 0.3s ease;
         }
 
         /* 错误状态保持原样 */
         .error {
-            background: #ffcccc !important;
+            background: #FFB6C1 !important;
+            animation: shake 0.5s;
         }
-
+      @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+/* 其他样式 */
+        sub {
+            font-size: 0.6em;
+            vertical-align: sub;
+            color: #666;
+        }
         .formula-part {
             display: flex;
             align-items: center;
@@ -136,13 +169,13 @@
             },
             {
                 formula: ' = ',
-                parts: [{numerator: 'G/g', denominator: 'F<sub>浮</sub>/ρg'}],
-                modules: ['G/g', 'F<sub>浮</sub>/ρg']
+                parts: [{numerator: 'G/g', denominator: 'F<sub>浮</sub>/ρ<sub>水</sub>g'}],
+                modules: ['G/g', 'F<sub>浮</sub>/ρ<sub>水</sub>g']
             },
             {
                 formula: ' = ',
-                parts: [{numerator: 'F1/g', denominator: '(F1-F2)/ρg'}],
-                modules: ['F1/g', '(F1-F2)/ρg']
+                parts: [{numerator: 'F1/g', denominator: '(F1-F2)/ρ<sub>水</sub>g'}],
+                modules: ['F1/g', '(F1-F2)/ρ<sub>水</sub>g']
             }
         ];
 
